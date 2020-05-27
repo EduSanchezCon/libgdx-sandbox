@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -119,6 +120,9 @@ public class Scene2dUIMenuScreen extends BaseScreen {
                     game.setScreen(screenFunction.apply(game));
                 }
             });
+            button.addAction(Actions.sequence(
+                    Actions.alpha(0),
+                    Actions.fadeIn(0.1f * i)));
             table.add(button).fillX().height(40f);
         }
         activeSkin = skin;
