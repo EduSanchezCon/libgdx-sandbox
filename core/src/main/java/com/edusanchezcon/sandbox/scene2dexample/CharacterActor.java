@@ -61,8 +61,6 @@ public class CharacterActor extends Actor {
         addListener();
     }
 
-
-
     private void addListener(){
         this.addListener(new InputListener(){
             @Override
@@ -117,6 +115,27 @@ public class CharacterActor extends Actor {
     }
 
     @Override
+    public void act(float delta){
+        super.act(delta);
+        // I will only do stuff when there is any movement
+        if (horizontal.factor != 0 || vertical.factor != 0){
+            nextPos.set( getX(), getY());
+            nextPos.x += horizontal.factor * velocity * delta;
+            nextPos.y += vertical.factor * velocity * delta;
+
+            nextPos.x = MathUtils.clamp(nextPos.x, 0f, scene.WORLD_WIDTH - BLOCK_SIZE);
+            nextPos.y = MathUtils.clamp(nextPos.y, 0f, Scene.WORLD_HEIGHT - BLOCK_SIZE);
+
+            if (scene.getCollisionObject(nextPos.x, nextPos.y, getWidth(), getHeight()) != null){
+                return;
+            }
+
+            addAction(Actions.moveTo(nextPos.x, nextPos.y));
+//            setPosition(nextPos.x, nextPos.y);
+        }
+    }
+
+    @Override
     public void draw(Batch batch, float parentAlpha){
         stateTime += Gdx.graphics.getDeltaTime();
 
@@ -137,27 +156,6 @@ public class CharacterActor extends Actor {
             shape.begin(ShapeRenderer.ShapeType.Line);
             shape.rect(getX(), getY(), getWidth(), getHeight());
             shape.end();
-        }
-    }
-
-    @Override
-    public void act(float delta){
-        super.act(delta);
-        // I will only do stuff when there is any movement
-        if (horizontal.factor != 0 || vertical.factor != 0){
-            nextPos.set( getX(), getY());
-            nextPos.x += horizontal.factor * velocity * delta;
-            nextPos.y += vertical.factor * velocity * delta;
-
-            nextPos.x = MathUtils.clamp(nextPos.x, 0f, scene.WORLD_WIDTH - BLOCK_SIZE);
-            nextPos.y = MathUtils.clamp(nextPos.y, 0f, Scene.WORLD_HEIGHT - BLOCK_SIZE);
-
-            if (scene.getCollisionObject(nextPos.x, nextPos.y, getWidth(), getHeight()) != null){
-                return;
-            }
-
-            addAction(Actions.moveTo(nextPos.x, nextPos.y));
-//            setPosition(nextPos.x, nextPos.y);
         }
     }
 

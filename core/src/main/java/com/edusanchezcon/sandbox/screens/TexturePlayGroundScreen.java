@@ -28,7 +28,8 @@ public class TexturePlayGroundScreen extends BaseScreen {
         super(game, NAME);
 
         cam = new OrthographicCamera();
-        viewport = new ExtendViewport(WORLD_WIDTH, WORLD_HEIGHT * (MyApp.HEIGHT/MyApp.WIDTH), cam);
+        viewport = new ExtendViewport(WORLD_WIDTH, WORLD_HEIGHT, cam);
+//        viewport = new ExtendViewport(WORLD_WIDTH, WORLD_HEIGHT * (MyApp.HEIGHT/MyApp.WIDTH), cam);
         viewport.apply();
         cam.position.set(cam.viewportWidth/2, cam.viewportHeight/2, 0);
         cam.update();
@@ -71,7 +72,7 @@ public class TexturePlayGroundScreen extends BaseScreen {
         batch.setProjectionMatrix(cam.combined);
 
         batch.begin();
-        for (int y = 0; y < (WORLD_HEIGHT/BLOCK_SIZE)/2; y++){
+        for (int y = 0; y < (WORLD_HEIGHT/BLOCK_SIZE); y++){
             batch.setColor(new Color(1,1,1, 1-(y*0.1f)));
             for (int x = 0; x < (WORLD_WIDTH/BLOCK_SIZE); x++){
                 batch.draw(background, x*BLOCK_SIZE, y*BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE );

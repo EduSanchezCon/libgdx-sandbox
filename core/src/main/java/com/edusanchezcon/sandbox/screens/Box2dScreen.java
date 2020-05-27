@@ -71,7 +71,7 @@ public class Box2dScreen extends BaseScreen {
 
         debugRenderer = new Box2DDebugRenderer(
                 true, true, true, true, true, true);
-        world = new World(new Vector2(0f, -10f),true);
+        world = new World(new Vector2(0f, -9.8f),true);
 
         createBody();
         createFloor();
@@ -92,30 +92,25 @@ public class Box2dScreen extends BaseScreen {
 
             @Override
             public void postSolve(Contact contact, ContactImpulse impulse){
-                Body player = null;
-                final Body other;
-                if (contact.getFixtureA().getBody().getUserData() == BodyObject.PLAYER){
-                    player = contact.getFixtureA().getBody();
-                    other = contact.getFixtureB().getBody();
-                }else if (contact.getFixtureB().getBody().getUserData() == BodyObject.PLAYER){
-                    player = contact.getFixtureB().getBody();
-                    other = contact.getFixtureA().getBody();
+                final Body enemy;
+                if (contact.getFixtureA().getBody().getUserData() == BodyObject.ENEMY){
+                    enemy = contact.getFixtureA().getBody();
+                }else if (contact.getFixtureB().getBody().getUserData() == BodyObject.ENEMY){
+                    enemy = contact.getFixtureB().getBody();
                 }else{
-                    other = null;
+                    return;
                 }
-                if (player != null){
-                    float[] impulses =  impulse.getNormalImpulses();
-                    double totalImpact = impulses[0] + impulses[1];
-                    // we want to register only significant impacts, Avoiding small frictions against the floor
-                    if (totalImpact > 5){
-                        Gdx.app.log("CONTACT", contact.getFixtureA().getBody().getUserData() + " - "
-                                + contact.getFixtureB().getBody().getUserData() + " force: " + totalImpact);
-                        // in this example, only collisions against the player can kill the enemy
-                        if (other.getUserData() == BodyObject.ENEMY && !flagKilled){
-                            flagKilled = true;
-                            enemySprite.setPosition(other.getPosition().x, other.getPosition().y);
-                            Gdx.app.postRunnable(()-> world.destroyBody(other));
-                        }
+
+                float[] impulses =  impulse.getNormalImpulses();
+                double totalImpact = impulses[0] + impulses[1];
+                // we want to register only significant impacts, Avoiding small frictions against the floor
+                if (totalImpact > 5){
+                    Gdx.app.log("CONTACT", contact.getFixtureA().getBody().getUserData() + " - "
+                            + contact.getFixtureB().getBody().getUserData() + " force: " + totalImpact);
+                    if (!flagKilled){
+                        flagKilled = true;
+                        enemySprite.setPosition(enemy.getPosition().x, enemy.getPosition().y);
+                        Gdx.app.postRunnable(()-> world.destroyBody(enemy));
                     }
                 }
             }
@@ -202,7 +197,7 @@ public class Box2dScreen extends BaseScreen {
     private void createEnemy(){
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(40, 2 + BLOCK_SIZE/2);
+        bodyDef.position.set(25, 2 + BLOCK_SIZE/2);
         bodyDef.angularDamping = 1f;
         enemy = world.createBody(bodyDef);
         enemy.setUserData(BodyObject.ENEMY);
@@ -292,8 +287,8 @@ public class Box2dScreen extends BaseScreen {
             touchPos.sub(vector3.x, vector3.y);
             Gdx.app.log("pre-limit", touchPos.toString());
             touchPos.limit(10);
-//            body.applyLinearImpulse(touchPos.scl(6f, 1f), body.getLocalCenter(), true);
-            body.setLinearVelocity(touchPos.scl(2, 2));
+            body.applyLinearImpulse(touchPos.scl(4f, 4f), body.getPosition(), true);
+//            body.setLinearVelocity(touchPos.scl(2, 2));
             Gdx.app.log("post-limit", touchPos.toString());
         }
         return true;
