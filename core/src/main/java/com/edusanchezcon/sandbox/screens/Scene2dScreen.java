@@ -10,7 +10,6 @@ import com.edusanchezcon.sandbox.scene2dexample.Scene;
 
 public class Scene2dScreen extends BaseScreen {
 
-
     private static final float BLOCK_SIZE = 1;
     public static final String NAME = "Prueba con Scene2d";
 

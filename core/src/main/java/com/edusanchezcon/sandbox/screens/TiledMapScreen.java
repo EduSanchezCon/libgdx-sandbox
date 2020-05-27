@@ -46,7 +46,7 @@ public class TiledMapScreen extends BaseScreen {
     private float unitScale;
     private TiledMapRenderer mapRenderer;
     int[] backgroundLayers = {0};
-    int[] foregroundLayers = {1, 2};
+    int[] foregroundLayers = {1};
     List<Shape2D> collisionShapes;
 
     private Texture characterTexture;

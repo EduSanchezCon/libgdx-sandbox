@@ -34,7 +34,7 @@ public class Scene{
     private ShapeRenderer shape;
     private TiledMapRenderer mapRenderer;
     private int[] backgroundLayers = {0};
-    private int[] foregroundLayers = {1, 2};
+    private int[] foregroundLayers = {1};
     private List<Shape2D> collisionShapes;
     private boolean drawCollisionShapes;
 
