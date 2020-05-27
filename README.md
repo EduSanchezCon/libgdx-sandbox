@@ -16,7 +16,7 @@ Un buen punto de partida. Es el tutorial más básico que he encontrado sobre un
 * [Super Mario Bros](https://www.youtube.com/watch?v=a8MPxzkwBwo&list=PLZm85UZQLd2SXQzsF-a0-pPF6IWDDdrXt)
 Incluye creación de mapas con Tiled y uso de Box2d
 * [Slide15](https://www.youtube.com/watch?v=S-wCEUO_dY8&list=PLD_bW3UTVsEkPsT2JfVcZmAjmWByIpRvT&index=1)
-Juego de puzle deslizante con scene2d y scene2d.ui. Se aplican buenas prácticas en el desarrollo con libgdx (ahorro de recursos, organización del código en los sitios adecuados). La pega es que pone toda la lógica del juego en las pantallas y tiene que llevar la cuenta, por separado de la posición de las fichas tanto en el modelo como en la vista (actualizando el array bidimensional y realizando el movimiento en pantalla)
+Juego de puzzle deslizante con scene2d y scene2d.ui. Se aplican buenas prácticas en el desarrollo con libgdx (ahorro de recursos, organización del código en los sitios adecuados). La pega es que pone toda la lógica del juego en las pantallas y tiene que llevar la cuenta, por separado de la posición de las fichas tanto en el modelo como en la vista (actualizando el array bidimensional y realizando el movimiento en pantalla)
 
 ## Herramientas
 * [LibGDX tools](https://libgdx.badlogicgames.com/tools.html)
@@ -64,5 +64,5 @@ Para poder implementar saltos sin usar Box2D
 Artículo sobre el uso de steps fijos en las simulaciones físicas de Box2D
 * [Física de coches](https://asawicki.info/Mirror/Car%20Physics%20for%20Games/Car%20Physics%20for%20Games.html)
  (Hay mucho trabajo más allá de llamar a Box2D)
-* [Awesoma LibGDX](https://project-awesome.org/rafaskb/awesome-libgdx)
+* [Awesome LibGDX](https://project-awesome.org/rafaskb/awesome-libgdx)
 Colección de material relacionado con LibGDX
